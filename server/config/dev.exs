@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :server, Server.Repo,
   username: "root",
-  password: "",
+  password: "root",
   hostname: "localhost",
   database: "server_dev",
   stacktrace: true,
