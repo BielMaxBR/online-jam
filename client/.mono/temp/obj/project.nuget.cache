@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2nauzQR3ZKIfparPRMBJxTmXwoy0ohDzMO4SKPqGi6yCmhEm627Wh8W2xLSgIMFtrRye/DaF3CP2LLeoluDh4Q==",
+  "dgSpecHash": "XdyZ1I8DCD8GMVLMBQtAf8aTIdZAPMA8b8OmheffF9/hnAx479kAbTIvu91GBFHyVzH+I6jbLXR8eGlxQYVjrw==",
   "success": true,
-  "projectFilePath": "/run/media/nokio/HD/godot/online-jam/client/towerassend fall.csproj",
+  "projectFilePath": "/mnt/Steam/godot/online-jam/client/towerassend fall.csproj",
   "expectedPackageFiles": [
     "/home/nokio/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
     "/home/nokio/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"

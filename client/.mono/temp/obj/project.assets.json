@@ -420,11 +420,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/run/media/nokio/HD/godot/online-jam/client/towerassend fall.csproj",
+      "projectUniqueName": "/mnt/Steam/godot/online-jam/client/towerassend fall.csproj",
       "projectName": "towerassend fall",
-      "projectPath": "/run/media/nokio/HD/godot/online-jam/client/towerassend fall.csproj",
+      "projectPath": "/mnt/Steam/godot/online-jam/client/towerassend fall.csproj",
       "packagesPath": "/home/nokio/.nuget/packages/",
-      "outputPath": "/run/media/nokio/HD/godot/online-jam/client/.mono/temp/obj/",
+      "outputPath": "/mnt/Steam/godot/online-jam/client/.mono/temp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/nokio/.nuget/NuGet/NuGet.Config"
