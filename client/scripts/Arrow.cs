@@ -12,7 +12,9 @@ public class Arrow : KinematicBody2D
 	private bool isDanderous = true;
 
 	private const int Enemy = 2; 
-	private const int Item = 3;
+	private const int Item = 3; 
+	private const int PlayerHurtBox = 1; 
+	private const int Grabber = 4;
 	public override void _Ready()
 	{
 		velocity = direction * speed;
@@ -36,9 +38,11 @@ public class Arrow : KinematicBody2D
 		// GD.Print(collision?.Position);
 		
 		isDanderous = condition;
-		
-		// SetCollisionLayerBit(Enemy, condition);
+		//            bit a partir de 0, booleano
+		SetCollisionLayerBit(Enemy, condition); 
 		SetCollisionLayerBit(Item, !condition);
 		
+		SetCollisionMaskBit(PlayerHurtBox, condition);
+		SetCollisionMaskBit(Grabber, !condition);
 	}
 }

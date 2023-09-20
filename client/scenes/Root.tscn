@@ -16,7 +16,7 @@ position = Vector2( 339, 328 )
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2( 507, 422 )
 scale = Vector2( 16.6, 1 )
-collision_mask = 6
+collision_mask = 0
 
 [node name="Icon" type="Sprite" parent="StaticBody2D"]
 texture = ExtResource( 3 )
@@ -27,7 +27,7 @@ shape = SubResource( 1 )
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2( 504, 242 )
 scale = Vector2( 3.64, 1 )
-collision_mask = 6
+collision_mask = 2
 
 [node name="Icon" type="Sprite" parent="StaticBody2D2"]
 texture = ExtResource( 3 )

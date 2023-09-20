@@ -16,12 +16,11 @@ D:/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.pdb
 /run/media/nokio/HD/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.csproj.CoreCompileInputs.cache
 /run/media/nokio/HD/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.dll
 /run/media/nokio/HD/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.pdb
+/mnt/Steam/godot/online-jam/client/.mono/temp/bin/Debug/towerassend fall.deps.json
 /mnt/Steam/godot/online-jam/client/.mono/temp/bin/Debug/towerassend fall.dll
 /mnt/Steam/godot/online-jam/client/.mono/temp/bin/Debug/towerassend fall.pdb
 /mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.csproj.AssemblyReference.cache
 /mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.GeneratedMSBuildEditorConfig.editorconfig
-/mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.AssemblyInfoInputs.cache
-/mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.AssemblyInfo.cs
 /mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.csproj.CoreCompileInputs.cache
 /mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.dll
 /mnt/Steam/godot/online-jam/client/.mono/temp/obj/Debug/towerassend fall.pdb

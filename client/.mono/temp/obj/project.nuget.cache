@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "XdyZ1I8DCD8GMVLMBQtAf8aTIdZAPMA8b8OmheffF9/hnAx479kAbTIvu91GBFHyVzH+I6jbLXR8eGlxQYVjrw==",
+  "dgSpecHash": "iuJOjXrAIh/8GoV0QRoWb0hh5/4UJEaMMlNOQuv+Ue5icbNhgtFxgXCmr2R7bRk8qVo125UgO/ax+TRcBy/d5w==",
   "success": true,
   "projectFilePath": "/mnt/Steam/godot/online-jam/client/towerassend fall.csproj",
   "expectedPackageFiles": [
-    "/home/nokio/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
-    "/home/nokio/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+    "/home/nokio/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/home/nokio/.nuget/packages/websocketsharp-netstandard/1.0.1/websocketsharp-netstandard.1.0.1.nupkg.sha512"
   ],
   "logs": []
 }
