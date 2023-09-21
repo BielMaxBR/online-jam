@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :server, Server.Repo,
-  username: "root",
-  password: "root",
+  username: "admin",
+  password: "admin",
   hostname: "localhost",
   database: "server_dev",
   stacktrace: true,
@@ -23,7 +23,7 @@ config :server, ServerWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "KVEnYiVps/rojT8LAQmvlNYYAGVWK49oznI4HF9oqrJJSdC4DhnLSiR2FNYhOfoF",
+  secret_key_base: "Aflm1AlkjbTpFLy22WWC+mlp2d5m1ICCfCmf2G6Q51N/dXPqa9Icj0JCqVjkM9Gn",
   watchers: []
 
 # ## SSL Support
@@ -61,6 +61,3 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
-
-# Disable swoosh api client as it is only required for production adapters.
-config :swoosh, :api_client, false

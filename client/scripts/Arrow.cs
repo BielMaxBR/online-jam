@@ -2,9 +2,7 @@ using Godot;
 
 public class Arrow : KinematicBody2D
 {
-	[Export]
 	public float speed = 750;
-	[Export]
 	public int gravity = 750;
 	public Vector2 direction = new Vector2(1, 0);
 	private Vector2 velocity = new Vector2();

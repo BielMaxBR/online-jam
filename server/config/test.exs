@@ -17,14 +17,8 @@ config :server, Server.Repo,
 # you can enable the server option below.
 config :server, ServerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "vtN9QOIjyF+1hyi4zBuP1THl5i4KpscmnLD4Pmlyd/cjA0q8+XMKwpOECyr39RGL",
+  secret_key_base: "ICDY1a04qn6pPdkrTg5cwqTF4EfKX5r9FNMZfcvu/jPTE1PFfAK+oGcPcT3M0p1H",
   server: false
-
-# In test we don't send emails.
-config :server, Server.Mailer, adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters.
-config :swoosh, :api_client, false
 
 # Print only warnings and errors during test
 config :logger, level: :warning

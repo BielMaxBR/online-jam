@@ -14,8 +14,7 @@ defmodule Server.Application do
       Server.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Server.PubSub},
-      # Start Finch
-      {Finch, name: Server.Finch},
+      {ElixirServer.UserStorage, %ElixirServer.UserStorage{}},
       # Start the Endpoint (http/https)
       ServerWeb.Endpoint
       # Start a worker by calling: Server.Worker.start_link(arg)
