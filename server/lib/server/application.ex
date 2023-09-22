@@ -5,6 +5,8 @@ defmodule Server.Application do
 
   use Application
 
+  alias Server.Store.{Player, Arrow}
+
   @impl true
   def start(_type, _args) do
     children = [
@@ -14,16 +16,17 @@ defmodule Server.Application do
       Server.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: Server.PubSub},
-      {ElixirServer.UserStorage, %ElixirServer.UserStorage{}},
       # Start the Endpoint (http/https)
-      ServerWeb.Endpoint
+      ServerWeb.Endpoint,
       # Start a worker by calling: Server.Worker.start_link(arg)
       # {Server.Worker, arg}
+      {Player, %{}},
+      {Arrow, %{}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Server.Supervisor]
+    opts = [strategy: :one_for_all, name: Server.Supervisor]
     Supervisor.start_link(children, opts)
   end
 

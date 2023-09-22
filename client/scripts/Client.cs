@@ -3,16 +3,26 @@ using System;
 using Phoenix;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using Godot.Collections;
 
 public class Client : Node2D
 {
 	private Socket socket;
 	private Channel channel;
+
+	public string local_id;
+
+	[Signal]
+	public delegate void joined(string id);
+	[Signal]
+	public delegate void updatePlayers(Player[] players);
+	[Signal]
+	public delegate void updateArrows(Arrow[] arrows);
 	public override void _Ready()
 	{
-		GD.Print("dom bia");
 		// testes
-		
+		GD.Print("dom bia");
+
 		// Login("0.tcp.sa.ngrok.io:11842", "nok");
 		Login("localhost:4000", "nok");
 	}
@@ -24,17 +34,43 @@ public class Client : Node2D
 		var socketFactory = new Phoenix.WebSocketImpl.DotNetWebSocketFactory();
 
 
-		var args = new Dictionary<string, string>();
-		args.Add("name", name);
+		var args = new System.Collections.Generic.Dictionary<string, string>(){
+  			{"nickname", name }
+		};
 
 		socket = new Socket(socketAddress, args, socketFactory, socketOptions);
 
-		socket.OnOpen += onOpenCallback;
-		socket.OnMessage += onMessageCallback;
-		socket.OnError += onErrorCallback;
 		socket.OnClose += onCloseCallback;
+		socket.OnError += onErrorCallback;
+		socket.OnMessage += onMessageCallback;
+		socket.OnOpen += onOpenCallback;
 
 		socket.Connect();
+
+		channel = socket.Channel("game:lobby");
+		Push push = channel.Join();
+		push.Receive(ReplyStatus.Timeout, reply => GD.Print("não foi possivel conectar ao canal"))
+			.Receive(ReplyStatus.Error, reply => GD.Print("Erro ao conectar ao canal"))
+			.Receive(ReplyStatus.Ok, reply =>
+			{
+				string _id = reply.Response.Unbox<IdPayload>().player_id;
+				local_id = _id;
+				GD.Print("conectado ao canal usando id ",_id);
+				EmitSignal("joined", _id);
+			});
+
+		channel.On("update_players", body => ChannelEvents.UpdatePlayers(body, this));
+		channel.On("update_arrows", body => ChannelEvents.UpdateArrows(body, this));
+
+	}
+
+	public void SendNewPlayer(Player player)
+	{
+		channel.Push("new_player", new PlayerPayload()
+		{
+			x = player.Position.x,
+			y = player.Position.y
+		});
 	}
 
 	private void onCloseCallback(ushort code, string message)

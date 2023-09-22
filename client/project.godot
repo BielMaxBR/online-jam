@@ -18,6 +18,18 @@ config/icon="res://icon.png"
 
 Client="*res://scripts/Client.cs"
 
+[debug]
+
+multirun/number_of_windows=2
+multirun/window_distance=500
+multirun/add_custom_args=true
+multirun/first_window_args="listen"
+multirun/other_window_args="join"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

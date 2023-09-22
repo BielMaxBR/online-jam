@@ -13,6 +13,9 @@ public class Player : KinematicBody2D
 	public int gravity = 1300;
 	[Export]
 	public int arrowCounter = 3;
+
+	public string id = "";
+
 	private Vector2 velocity = Vector2.Zero;
 
 	private bool jump;
@@ -68,7 +71,7 @@ public class Player : KinematicBody2D
 
 		jump = Input.IsActionJustPressed("jump");
 		stopJump = Input.IsActionJustReleased("jump");
-		
+
 		shoot = Input.IsActionJustPressed("shoot");
 
 		direction = Input.GetAxis("left", "right");
@@ -88,8 +91,9 @@ public class Player : KinematicBody2D
 				velocity /= 3;
 			}
 
-			if (fastFall) {
-				velocity.y += speed/4;
+			if (fastFall)
+			{
+				velocity.y += speed / 4;
 			}
 		}
 
@@ -99,7 +103,7 @@ public class Player : KinematicBody2D
 	public void MovePlayer(float delta)
 	{
 		velocity.y += gravity * delta;
-		velocity.y = Mathf.Clamp((int)velocity.y, (int)(-gravity*1.5), (int)(gravity*1.5));
+		velocity.y = Mathf.Clamp((int)velocity.y, (int)(-gravity * 1.5), (int)(gravity * 1.5));
 		velocity = MoveAndSlide(velocity, Vector2.Up);
 	}
 	public void _on_Grabber_body_entered(Arrow body)

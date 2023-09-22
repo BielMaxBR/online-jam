@@ -1,44 +1,75 @@
+# código copiado de https://github.com/sergioaugrod/uai_shot/blob/master/lib/uai_shot_web/channels/game_channel.ex
 defmodule ServerWeb.GameChannel do
   use ServerWeb, :channel
-  @impl true
-  def join("game:lobby", _payload, socket) do
-    {:ok, pid} = User.start_link()
-    socket = assign(socket, :pid, pid)
 
+  alias Server.Store.{Arrow, Player}
+
+  def join("game:lobby", _message, socket) do
     send(self(), :after_join)
-    {:ok, socket}
+    {:ok, %{player_id: socket.assigns.player_id}, socket}
   end
 
-  @impl true
+  def join("game:" <> _private_game_id, _params, _socket) do
+    {:error, %{reason: "unauthorized"}}
+  end
+
   def handle_info(:after_join, socket) do
-    pid = socket.assigns.pid
-    %{id: id, position: position} = User.get_player(pid)
-    UserStorage.store_pid(id, pid)
+    push(socket, "ping", %{})
+    {:noreply, socket}
+  end
 
-    push(socket, "init", %{ yourid: id, online_players: UserStorage.get_all_players() })
-    broadcast_from!(socket, "joined", %{id: id, position: position})
+  def handle_in("new_player", state, socket) do
+    state = format_state(state)
+    nickname = socket.assigns.nickname
+    player_id = socket.assigns.player_id
+
+    state
+    |> Map.put(:id, player_id)
+    |> Map.put(:nickname, nickname)
+    |> Player.put()
+
+    # Ranking.put(%{player_id: socket.assigns.player_id, nickname: nickname, value: 0})
+
+    broadcast(socket, "update_players", %{players: Player.all()})
+    broadcast(socket, "update_arrows", %{arrows: Arrow.all()})
+    # broadcast(socket, "update_ranking", %{ranking: Ranking.all()})
 
     {:noreply, socket}
   end
 
-  @impl true
-  def terminate(reason, socket) do
-    id = User.get_id(socket.assigns.pid)
-    broadcast_from!(socket, "exited", %{id: id})
-    # lembrar de apagar no db depois
-    IO.puts("[info] TERMINATED ID: #{id}\n REASON: #{inspect reason}")
-    UserStorage.delete_pid(id)
-    User.stop(socket.assigns.pid)
+  def handle_in("move_player", state, socket) do
+    state
+    |> format_state
+    |> Map.put(:id, socket.assigns.player_id)
+    |> Map.put(:nickname, socket.assigns.nickname)
+    |> Player.put()
+
+    broadcast(socket, "update_players", %{players: Player.all()})
+
+    {:noreply, socket}
   end
 
-  @impl true
-  def handle_in("move", %{"position" => position}, socket) do
-    pid = socket.assigns.pid
-    id = User.get_id(pid)
+  def handle_in("shoot_arrow", state, socket) do
+    state
+    |> format_state
+    |> Map.put(:player_id, socket.assigns.player_id)
+    |> Arrow.put()
 
-    User.set_position(pid, position)
+    broadcast(socket, "update_arrows", %{arrows: Arrow.all()})
 
-    broadcast_from!(socket, "move", %{id: id, position: position})
     {:noreply, socket}
+  end
+
+  def terminate(_msg, socket) do
+    player_id = socket.assigns.player_id
+    Player.delete(player_id)
+    # Ranking.delete(player_id)
+    IO.puts("#{IO.ANSI.red()}left player_id: #{player_id}#{IO.ANSI.white()}")
+    broadcast(socket, "update_players", %{players: Player.all()})
+    # broadcast(socket, "update_ranking", %{ranking: Ranking.all()})
+  end
+
+  defp format_state(state) do
+    for {key, val} <- state, into: %{}, do: {String.to_atom(key), val}
   end
 end
