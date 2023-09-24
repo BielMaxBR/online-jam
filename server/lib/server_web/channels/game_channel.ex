@@ -30,8 +30,8 @@ defmodule ServerWeb.GameChannel do
 
     # Ranking.put(%{player_id: socket.assigns.player_id, nickname: nickname, value: 0})
 
+    # broadcast(socket, "update_arrows", %{arrows: Arrow.all()})
     broadcast(socket, "update_players", %{players: Player.all()})
-    broadcast(socket, "update_arrows", %{arrows: Arrow.all()})
     # broadcast(socket, "update_ranking", %{ranking: Ranking.all()})
 
     {:noreply, socket}
@@ -50,13 +50,13 @@ defmodule ServerWeb.GameChannel do
   end
 
   def handle_in("shoot_arrow", state, socket) do
-    state
+    arrow = state
     |> format_state
-    |> Map.put(:player_id, socket.assigns.player_id)
-    |> Arrow.put()
+    |> Map.put(:id, socket.assigns.player_id)
+    # |> Arrow.put()
 
-    broadcast(socket, "update_arrows", %{arrows: Arrow.all()})
-
+    # IO.inspect(arrow)
+    broadcast(socket, "update_arrows", arrow)
     {:noreply, socket}
   end
 

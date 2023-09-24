@@ -15,21 +15,32 @@ public class Player : KinematicBody2D
 	public int arrowCounter = 3;
 
 	public string id = "";
-
-	private Vector2 velocity = Vector2.Zero;
+	public bool is_local_player = true;
+	public double last_time_moved = 0;
+	public Vector2 velocity = Vector2.Zero;
 
 	private bool jump;
 	private bool stopJump;
 	private bool shoot;
 	private bool fastFall;
 	private float direction;
+	private Root root;
+
+
+	public override void _Ready()
+	{
+		root = (Root)Owner;
+	}
 
 	public override void _PhysicsProcess(float delta)
 	{
-		HandleInput();
-		MovePlayer(delta);
-		MoveMira();
-		Shooting();
+		if (is_local_player)
+		{
+			HandleInput();
+			MovePlayer(delta);
+			MoveMira();
+			Shooting();
+		}
 		// var vetor = (GetLastSlideCollision()?.Position - GlobalPosition);
 		// if (vetor != null) GD.Print(Vector2.Right.Rotated((float)(Math.Round((double)vetor?.Angle() / Tau * 8) * Tau / 8)).Snapped(Vector2.One));
 	}
@@ -38,7 +49,7 @@ public class Player : KinematicBody2D
 	{
 		if (shoot && arrowCounter > 0)
 		{
-			PackedScene packedArrow = ResourceLoader.Load<PackedScene>("res://objects/Arrow.tscn");
+			PackedScene packedArrow = ResourceLoader.Load<PackedScene>("res://objects/arrow.tscn");
 			Arrow newArrow = packedArrow.Instance<Arrow>();
 
 			Position2D mira = GetNode<Position2D>("Mira");
@@ -47,6 +58,7 @@ public class Player : KinematicBody2D
 			newArrow.direction = mira.Position.Normalized();
 			newArrow.Rotation = mira.Position.Angle();
 
+			root.client.ShootArrow(newArrow);
 			GetParent<Node2D>().AddChild(newArrow);
 
 			arrowCounter -= 1;
@@ -104,6 +116,7 @@ public class Player : KinematicBody2D
 	{
 		velocity.y += gravity * delta;
 		velocity.y = Mathf.Clamp((int)velocity.y, (int)(-gravity * 1.5), (int)(gravity * 1.5));
+
 		velocity = MoveAndSlide(velocity, Vector2.Up);
 	}
 	public void _on_Grabber_body_entered(Arrow body)

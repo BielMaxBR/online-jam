@@ -21,7 +21,7 @@ Client="*res://scripts/Client.cs"
 [debug]
 
 multirun/number_of_windows=2
-multirun/window_distance=500
+multirun/window_distance=150
 multirun/add_custom_args=true
 multirun/first_window_args="listen"
 multirun/other_window_args="join"

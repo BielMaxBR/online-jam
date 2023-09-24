@@ -15,15 +15,15 @@ public class Client : Node2D
 	[Signal]
 	public delegate void joined(string id);
 	[Signal]
-	public delegate void updatePlayers(Player[] players);
+	public delegate void updatePlayers(List<Player> players);
 	[Signal]
-	public delegate void updateArrows(Arrow[] arrows);
+	public delegate void updateArrows(Arrow arrow);
 	public override void _Ready()
 	{
 		// testes
 		GD.Print("dom bia");
 
-		// Login("0.tcp.sa.ngrok.io:11842", "nok");
+		// Login("0.tcp.sa.ngrok.io:17064", "nok");
 		Login("localhost:4000", "nok");
 	}
 
@@ -49,13 +49,13 @@ public class Client : Node2D
 
 		channel = socket.Channel("game:lobby");
 		Push push = channel.Join();
-		push.Receive(ReplyStatus.Timeout, reply => GD.Print("não foi possivel conectar ao canal"))
+		push.Receive(ReplyStatus.Timeout, reply => GD.Print("Não foi possivel conectar ao canal"))
 			.Receive(ReplyStatus.Error, reply => GD.Print("Erro ao conectar ao canal"))
 			.Receive(ReplyStatus.Ok, reply =>
 			{
 				string _id = reply.Response.Unbox<IdPayload>().player_id;
 				local_id = _id;
-				GD.Print("conectado ao canal usando id ",_id);
+				GD.Print("conectado ao canal usando id ", _id);
 				EmitSignal("joined", _id);
 			});
 
@@ -72,10 +72,30 @@ public class Client : Node2D
 			y = player.Position.y
 		});
 	}
+	public void MovePlayer(Player localPlayer)
+	{
+		channel.Push("move_player", new PlayerPayload()
+		{
+			x = localPlayer.Position.x,
+			y = localPlayer.Position.y,
+			id = localPlayer.id,
+			timestamp = Time.GetUnixTimeFromSystem()
+		});
+	}
+
+	public void ShootArrow(Arrow arrow)
+	{
+		channel.Push("shoot_arrow", new ArrowPayload()
+		{
+			x = arrow.Position.x,
+			y = arrow.Position.y,
+			direction = arrow.direction
+		});
+	}
 
 	private void onCloseCallback(ushort code, string message)
 	{
-		GD.Print("closed: ", code, message);
+		GD.Print("closed: ", code, " ", message);
 	}
 	private void onErrorCallback(string message)
 	{
@@ -90,4 +110,5 @@ public class Client : Node2D
 	{
 		GD.Print("entrando");
 	}
+
 }

@@ -5,6 +5,8 @@ public class Arrow : KinematicBody2D
 	public float speed = 750;
 	public int gravity = 750;
 	public Vector2 direction = new Vector2(1, 0);
+	public string id = "";
+
 	private Vector2 velocity = new Vector2();
 	private float counter = 0;
 	private bool isDanderous = true;
@@ -13,6 +15,7 @@ public class Arrow : KinematicBody2D
 	private const int Item = 3; 
 	private const int PlayerHurtBox = 1; 
 	private const int Grabber = 4;
+
 	public override void _Ready()
 	{
 		velocity = direction * speed;
